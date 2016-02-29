@@ -1,3 +1,4 @@
+import './stylesheets/components.scss';
 import React from 'react';
 import ChatModel from './models/ChatModel';
 import ChatForm from './components/ChatForm';
