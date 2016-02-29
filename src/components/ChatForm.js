@@ -8,7 +8,7 @@ class ChatForm extends React.Component {
 
   createChat(event) {
     event.preventDefault();
-    let newMessage = this.refs.newChat.value;
+    let newMessage = this.refs.newMessage.value;
     this.chats.addResource({
       message: newMessage,
       completed: false

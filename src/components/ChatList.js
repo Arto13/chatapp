@@ -1,32 +1,37 @@
 import React from 'react';
 
+class ChatList extends React.Component {
+  constructor() {
+    super();
 
-class ChatForm extends React.Component {
-  componentDidMount() {
-    this.chats = this.props.model;
+    this.state = {
+      chats: []
+    };
   }
 
-  createMessage(event) {
-    event.preventDefault();
-    console.log("Create Chat Called!");
-    let newMessage = this.refs.newMessage.value;
-    this.chats.addResource({
-      title: newMessage,
-      completed: false
+  componentDidMount() {
+    this.chats = this.props.model;
+    this.chats.subscribe(this.updateList.bind(this))
+  }
+
+  updateList() {
+    this.setState({
+      chats: this.chats.resources
     });
-    this.refs.newMessage.value = "";
   }
 
   render() {
+    console.log(this.state.chats);
     return(
-      <div>
-        <form onSubmit={this.createMessage.bind(this)}>
-          <input type="text" ref="newMessage"/>
-          <button type="submit">Create</button>
-        </form>
+      <div className="well">
+        <ul>
+          {this.state.chats.map((chat) => {
+            return (<li key={chat._id}>{chat.message}</li>);
+          })}
+        </ul>
       </div>
-    )
+    );
   }
 }
 
-export default ChatForm;
+export default ChatList;
